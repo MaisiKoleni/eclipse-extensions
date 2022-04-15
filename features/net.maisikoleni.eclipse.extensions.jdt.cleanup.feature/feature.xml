@@ -299,4 +299,11 @@ version(s), and exceptions or additional permissions here}.&quot;
   You may add additional accurate notices of copyright ownership.
    </license>
 
+   <plugin
+         id="net.maisikoleni.eclipse.extensions.jdt.cleanup.plugin"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
