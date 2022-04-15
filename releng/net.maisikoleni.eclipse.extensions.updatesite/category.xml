@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="net.maisikoleni.eclipse.extensions.jdt.cleanup.feature">
+      <category name="net.maisikoleni.eclipse.extensions.jdt.category"/>
+   </feature>
+   <category-def name="net.maisikoleni.eclipse.extensions.jdt.category" label="JDT Extensions">
+      <description>
+         Extensions for the Eclipse IDE Java Development Tools
+      </description>
+   </category-def>
+</site>

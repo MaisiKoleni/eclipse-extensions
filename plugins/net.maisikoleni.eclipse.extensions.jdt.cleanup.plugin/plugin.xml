@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.jdt.ui.cleanUps">
+      <cleanUp
+            class="net.maisikoleni.eclipse.extensions.jdt.cleanup.negation.MethodNegationPushdownCleanUp"
+            id="net.maisikoleni.eclipse.extensions.jdt.cleanup.optionalNegation"
+            runAfter="org.eclipse.jdt.ui.cleanup.push_down_negation">
+      </cleanUp>
+      <cleanUpConfigurationUI
+            class="net.maisikoleni.eclipse.extensions.jdt.cleanup.CleanUpExtensionsTabPage"
+            cleanUpKind="cleanUp"
+            name="Extensions by Christian Femers">
+      </cleanUpConfigurationUI>
+      <cleanUpOptionsInitializer
+            class="net.maisikoleni.eclipse.extensions.jdt.cleanup.negation.MethodNegationPushdownOptionsInitializer"
+            cleanUpKind="cleanUp">
+      </cleanUpOptionsInitializer>
+   </extension>
+
+
+</plugin>

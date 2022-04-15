@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>net.maisikoleni.eclipse.extensions</artifactId>
+	<packaging>pom</packaging>
+	<parent>
+		<groupId>net.maisikoleni.eclipse.extensions</groupId>
+		<artifactId>net.maisikoleni.eclipse.extensions.configuration</artifactId>
+		<version>${revision}${changelist}</version>
+		<relativePath>releng/net.maisikoleni.eclipse.extensions.configuration/pom.xml</relativePath>
+	</parent>
+
+	<modules>
+		<module>plugins</module> <!-- the actual plugins that implement the functionality -->
+		<module>features</module> <!-- definition of features (approx. a collection of plugins) -->
+		<module>releng</module> <!-- configuration and release engineering "releng" -->
+		<module>tests</module>  <!-- fragment plugins for testing only -->
+	</modules>
+</project>
