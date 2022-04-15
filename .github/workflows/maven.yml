@@ -22,18 +22,20 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Set up virtual display
+      run: Xvfb
     - name: Test and package with Maven
-      run: mvn -B verify -Dskip.ui-tests=true
+      run: mvn -B verify
     - name: Upload failure logs if necessary
       uses: actions/upload-artifact@v3
       if: failure()
       with:
-        name: failure-logs
+        name: failure-logs-${{ github.sha }}
         path: tests/**/.log
         retention-days: 3
     - name: Upload updatesite artifact
       uses: actions/upload-artifact@v3
       with:
-        name: updatesite
+        name: updatesite-${{ github.sha }}
         path: releng/net.maisikoleni.eclipse.extensions.updatesite/target/repository/
         retention-days: 7
