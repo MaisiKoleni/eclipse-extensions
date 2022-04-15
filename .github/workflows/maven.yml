@@ -22,10 +22,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Set up virtual display
-      run: Xvfb
     - name: Test and package with Maven
-      run: mvn -B verify
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        run: mvn -B verify
     - name: Upload failure logs if necessary
       uses: actions/upload-artifact@v3
       if: failure()
