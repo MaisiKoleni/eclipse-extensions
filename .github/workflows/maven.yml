@@ -23,13 +23,14 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Test and package with Maven
-      run: mvn -B verify --file pom.xml
+      run: mvn -B verify -Dskip.ui-tests=true
     - name: Upload failure logs if necessary
       uses: actions/upload-artifact@v3
       if: failure()
       with:
         name: failure-logs
         path: tests/**/.log
+        retention-days: 3
     - name: Upload updatesite artifact
       uses: actions/upload-artifact@v3
       with:
