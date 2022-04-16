@@ -63,7 +63,7 @@ jobs:
       - name: Process Asciidoc from ./main to ./public
         uses: avattathil/asciidoctor-action@v2
         with:
-          program: asciidoctor -R main -D public -b html5 -o index.html -a toc=auto -a revdate="${{ steps.commit_date.outputs.value }}" -a revnumber=${{ github.sha }}
+          program: asciidoctor -D public -b html5 -o index.html -a toc=auto -a revdate="${{ steps.commit_date.outputs.value }}" -a revnumber=${{ github.sha }} main/README.adoc
       - name: Push content of ./public
         uses: peaceiris/actions-gh-pages@v3
         with:
