@@ -445,11 +445,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h1>Eclipse Extensions</h1>
 <div class="details">
 <span id="author" class="author">Christian Femers</span><br>
-<span id="revnumber">version e2c72e34d33db31e52ed32303b4bf068e035e7bb,</span>
-<span id="revdate">2022-04-16 13:56:17 +0200</span>
+<span id="revnumber">version 8d51ae4e6c3fa1b0b582a82b34b8b16c7b31abd7,</span>
+<span id="revdate">2022-04-16 18:55:20 +0200</span>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_jdt_extensions">1. JDT Extensions</a>
+<ul class="sectlevel2">
+<li><a href="#_jdt_cleanup_extensions">1.1. JDT CleanUp Extensions</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 <div id="content">
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>A Personal Collection of Useful Extensions for the Eclipse IDE</p>
 </div>
@@ -457,14 +469,133 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>This is a collection of various extensions to the Eclipse IDE,
 mainly the Java Development Tools (JDT).
 The update site URL is
-<a href="https://maisikoleni.github.io/eclipse-extensions/repository/latest/" class="bare">https://maisikoleni.github.io/eclipse-extensions/repository/latest/</a>
+<a href="https://extensions.eclipse.maisikoleni.net/repository/latest/" class="bare">https://extensions.eclipse.maisikoleni.net/repository/latest/</a>
 for the most recent build of all Eclipse feature plugins.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>As personal use is the main goal of my development efforts,
+I cannot guarantee that it will work in all Eclipse versions.
+The plugins often break the intended public API
+barrier of the JDT modules, as without the internal API
+I would need to reinvent the wheel a lot (or copy the code
+into my project). I prefer to adjust to internal API changes
+instead (should that ever be necessary).</p>
+</div>
+<div class="paragraph">
+<p>The main aim is that the plugin works with the latest
+Eclipse IDE release running on at least the latest LTS-JDK.
+Currently, this is Eclipse 2022-03 with JDK 17+.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jdt_extensions">1. JDT Extensions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A feature plugin category that contains
+Extensions for the Eclipse Java Development Tools
+(<a href="https://www.eclipse.org/jdt/" class="bare">https://www.eclipse.org/jdt/</a>) of the Eclipse Java IDE.</p>
+</div>
+<div class="sect2">
+<h3 id="_jdt_cleanup_extensions">1.1. JDT CleanUp Extensions</h3>
+<div class="paragraph">
+<p>Clean-ups are actions performed on Java code
+that refactor and clean up the code in various ways
+such as formatting, simplifying expressions or
+transformations from old structures to more expressive
+new Java language features.
+They are available for Java source folder/packages/files
+using <code>Source</code> &#8594; <code>Clean Up&#8230;&#8203;</code> but you can configure
+most of them to run automatically on save, too.</p>
+</div>
+<div class="paragraph">
+<p>The "JDT CleanUp Extensions" plugin of this project
+extends the available clean-ups by the following
+Clean Ups.</p>
+</div>
+<div class="sect3">
+<h4 id="_method_negation_pushdown">1.1.1. Method Negation Pushdown</h4>
+<div class="paragraph">
+<p>Similar to the <code>Push down negation</code> clean-up
+provided by the JDT this clean-up pushes negations
+further down but instead of expressions, it eliminates
+negations by swapping a method invocation A to
+an invocation of its counterpart, B.
+The table <a href="#method-neg-table">Supported Opposing Method Pairs</a> lists all currently
+supported method pairs.</p>
+</div>
+<table id="method-neg-table" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Supported Opposing Method Pairs</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Invocation Target Type</th>
+<th class="tableblock halign-left valign-top">Method A</th>
+<th class="tableblock halign-left valign-top">Method B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>java.util.Optional</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>isPresent</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>isEmpty</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>java.util.stream.Stream</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>anyMatch</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>noneMatch</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For example, the statements</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">boolean isEmpty = !Optional.of(42).isPresent();
+boolean hasBlank = !(Stream.of("penguin").noneMatch(String::isBlank));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>will get transformed into</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">boolean isEmpty = Optional.of(42).isEmpty();
+boolean hasBlank = Stream.of("penguin").anyMatch(String::isBlank);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This clean-up can be used together with the standard
+<code>Push down negation</code> clean-up in most cases, but it may
+be necessary to run the clean-ups multiple times in case
+there is a lot to push down (this is already the case
+without the extensions).</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version e2c72e34d33db31e52ed32303b4bf068e035e7bb<br>
-Last updated 2022-04-16 11:57:53 UTC
+Version 8d51ae4e6c3fa1b0b582a82b34b8b16c7b31abd7<br>
+Last updated 2022-04-16 16:56:37 UTC
 </div>
 </div>
 </body>
