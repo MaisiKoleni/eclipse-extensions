@@ -1,0 +1,19 @@
+:encoding: utf-8
+:lang: en
+:title: Eclipse Extensions
+:description: Extensions for the Eclipse IDE Java Development Tools
+:keywords: eclipse, ide, java, jdt, cleanup, clean-up
+:author: Christian Femers
+:showtitle:
+:numbered:
+:icons: font
+
+= Eclipse Extensions
+
+A Personal Collection of Useful Extensions for the Eclipse IDE
+
+This is a collection of various extensions to the Eclipse IDE,
+mainly the Java Development Tools (JDT).
+The update site URL is
+https://maisikoleni.github.io/eclipse-extensions/repository/latest/
+for the most recent build of all Eclipse feature plugins.

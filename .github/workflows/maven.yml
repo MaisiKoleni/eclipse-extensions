@@ -39,3 +39,47 @@ jobs:
         name: updatesite-${{ github.sha }}
         path: releng/net.maisikoleni.eclipse.extensions.updatesite/target/repository/
         retention-days: 7
+  publish:
+    runs-on: ubuntu-latest
+    name: Deploy to GitHub Pages
+    environment: github-pages
+    needs: build
+    steps:
+      - name: Download updatesite artifact into ./public
+        uses: actions/download-artifact@v2
+        with:
+          name: updatesite-${{ github.sha }}
+          path: public/repository/latest
+      - name: Checkout main
+        uses: actions/checkout@v2
+        with:
+          path: main
+      - name: Extract commit date
+        id: commit_date
+        run: |
+          ls
+          cd main
+          echo ::set-output name=value::$(git show -s --format=%ci ${{ github.sha }})
+          cd ..
+          ls
+      - name: Process Asciidoc
+        uses: avattathil/asciidoctor-action@v2
+        with:
+          program: asciidoctor -R main -D public -b html5 -o index.html -a toc=auto -a revdate=${{ steps.commit_date.outputs.value }} -a revnumber=${{ github.sha }}
+      - name: Test output
+        run: |
+          ls
+          ls main
+          ls public
+      - name: Test output 2
+        if: failure()
+        working-directory: .
+        run: |
+          ls
+          ls main
+          ls public
+      #- name: Push content of ./public
+      #  uses: peaceiris/actions-gh-pages@v3
+      #  with:
+      #    github_token: ${{ secrets.GITHUB_TOKEN }}
+      #    publish_dir: public
