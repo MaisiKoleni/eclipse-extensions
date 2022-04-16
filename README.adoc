@@ -15,5 +15,28 @@ A Personal Collection of Useful Extensions for the Eclipse IDE
 This is a collection of various extensions to the Eclipse IDE,
 mainly the Java Development Tools (JDT).
 The update site URL is
-https://maisikoleni.github.io/eclipse-extensions/repository/latest/
+https://extensions.eclipse.maisikoleni.net/repository/latest/
 for the most recent build of all Eclipse feature plugins.
+
+[WARNING]
+====
+As personal use is the main goal of my development efforts,
+I cannot guarantee that it will work in all Eclipse versions.
+The plugins often break the intended public API
+barrier of the JDT modules, as without the internal API
+I would need to reinvent the wheel a lot (or copy the code
+into my project). I prefer to adjust to internal API changes
+instead (should that ever be necessary).
+
+The main aim is that the plugin works with the latest
+Eclipse IDE release running on at least the latest LTS-JDK.
+Currently, this is Eclipse 2022-03 with JDK 17+.
+====
+
+== JDT Extensions
+
+A feature plugin category that contains
+Extensions for the Eclipse Java Development Tools
+(https://www.eclipse.org/jdt/) of the Eclipse Java IDE.
+
+include::features/net.maisikoleni.eclipse.extensions.jdt.cleanup.feature/README.adoc[leveloffset=1]

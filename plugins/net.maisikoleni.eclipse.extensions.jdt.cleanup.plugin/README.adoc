@@ -1,0 +1,52 @@
+== JDT CleanUp Extensions
+
+Clean-ups are actions performed on Java code
+that refactor and clean up the code in various ways
+such as formatting, simplifying expressions or
+transformations from old structures to more expressive
+new Java language features.
+They are available for Java source folder/packages/files
+using `Source` -> `Clean Up...` but you can configure
+most of them to run automatically on save, too.
+
+The "JDT CleanUp Extensions" plugin of this project
+extends the available clean-ups by the following
+Clean Ups.
+
+=== Method Negation Pushdown
+
+Similar to the `Push down negation` clean-up
+provided by the JDT this clean-up pushes negations
+further down but instead of expressions, it eliminates
+negations by swapping a method invocation A to
+an invocation of its counterpart, B.
+The table <<method-neg-table>> lists all currently
+supported method pairs.
+
+.Supported Opposing Method Pairs
+[#method-neg-table,options="header",cols="1,1,1"]
+|===
+| Invocation Target Type    | Method A    | Method B
+//------------------------------------------------------
+| `java.util.Optional`      | `isPresent` | `isEmpty`
+| `java.util.stream.Stream` | `anyMatch`  | `noneMatch`
+|===
+
+For example, the statements
+[source,java]
+----
+boolean isEmpty = !Optional.of(42).isPresent();
+boolean hasBlank = !(Stream.of("penguin").noneMatch(String::isBlank));
+----
+will get transformed into
+[source,java]
+----
+boolean isEmpty = Optional.of(42).isEmpty();
+boolean hasBlank = Stream.of("penguin").anyMatch(String::isBlank);
+----
+
+This clean-up can be used together with the standard
+`Push down negation` clean-up in most cases, but it may
+be necessary to run the clean-ups multiple times in case
+there is a lot to push down (this is already the case
+without the extensions).
