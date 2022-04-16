@@ -33,6 +33,37 @@ Eclipse IDE release running on at least the latest LTS-JDK.
 Currently, this is Eclipse 2022-03 with JDK 17+.
 ====
 
+// ----------------------------------------------------------
+// Display the following for standard GitHub AsciiDoc display
+// ----------------------------------------------------------
+ifdef::env-github[]
+
+**Visit https://extensions.eclipse.maisikoleni.net/
+for a more detailed documentation of all features.**
+
+.Why is the documentation not availabe here?
+[NOTE]
+====
+This README includes the individual AsciiDoc files
+of all feature plugins and aggregates them into
+one documentation, which is compiled and deployed
+to GitHub Pages (using the aforementioned custom
+domain).
+
+The support for AsciiDoc inside GitHub itself
+is good, but sadly lacks the intended functionality
+of the include directive (it becomes a link instead).
+See https://github.com/github/markup/issues/1095
+for more information on that issue.
+====
+
+endif::env-github[]
+
+// -------------------------------------------------------
+// Otherwise, include the main content (e.g. GitHub Pages)
+// -------------------------------------------------------
+ifndef::env-github[]
+
 == JDT Extensions
 
 A feature plugin category that contains
@@ -40,3 +71,5 @@ Extensions for the Eclipse Java Development Tools
 (https://www.eclipse.org/jdt/) of the Eclipse Java IDE.
 
 include::features/net.maisikoleni.eclipse.extensions.jdt.cleanup.feature/README.adoc[leveloffset=1]
+
+endif::env-github[]
