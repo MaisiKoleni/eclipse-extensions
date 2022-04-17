@@ -7,8 +7,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import org.eclipse.jdt.internal.ui.fix.AbstractCleanUp;
 import org.eclipse.jdt.ui.cleanup.CleanUpOptions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import net.maisikoleni.eclipse.extensions.jdt.cleanup.CleanUpExtensions;
 import net.maisikoleni.eclipse.extensions.jdt.cleanup.CompilationUnitEnvironment;
+import net.maisikoleni.eclipse.extensions.jdt.cleanup.SimpleCleanUp;
 
 @SuppressWarnings("restriction")
 class MethodNegationPushdownCleanUpTest {
@@ -23,18 +24,21 @@ class MethodNegationPushdownCleanUpTest {
 	private static CompilationUnitEnvironment environment;
 
 	private CleanUpOptions options;
-	private AbstractCleanUp cleanUp;
+	private SimpleCleanUp cleanUp;
 
 	@BeforeAll
 	static void buildEnvironment() {
-		String source = "" //
-				+ "import java.util.Optional;\n" //
-				+ "" //
-				+ "public class X {\n" //
-				+ "    public static void main(String[] args) {\n" //
-				+ "        boolean isEmpty = !Optional.of(5).isPresent();\n" //
-				+ "    }\n" //
-				+ "}\n";
+		String source = """
+				import java.util.Optional;
+				import java.util.stream.DoubleStream;
+
+				public class X {
+				    public static void main(String[] args) {
+				        boolean present = !Optional.of(5).isEmpty();
+				        boolean noNaN = !DoubleStream.of(1.0).anyMatch(Double::isNaN);
+				    }
+				}
+				""";
 		environment = environment().name("X.java").source(source).build();
 	}
 
@@ -85,14 +89,17 @@ class MethodNegationPushdownCleanUpTest {
 
 	@Test
 	void testCleanUpAllSelected() {
-		String expected = "" //
-				+ "import java.util.Optional;\n" //
-				+ "" //
-				+ "public class X {\n" //
-				+ "    public static void main(String[] args) {\n" //
-				+ "        boolean isEmpty = Optional.of(5).isEmpty();\n" //
-				+ "    }\n" //
-				+ "}\n";
+		String expected = """
+				import java.util.Optional;
+				import java.util.stream.DoubleStream;
+
+				public class X {
+				    public static void main(String[] args) {
+				        boolean present = Optional.of(5).isPresent();
+				        boolean noNaN = DoubleStream.of(1.0).noneMatch(Double::isNaN);
+				    }
+				}
+				""";
 		var appliedCleanUp = assertThat(cleanUp).using(environment);
 		appliedCleanUp.isWithoutProblems();
 		appliedCleanUp.newSource().isEqualTo(expected);
@@ -104,5 +111,36 @@ class MethodNegationPushdownCleanUpTest {
 		var appliedCleanUp = assertThat(cleanUp).using(environment);
 		appliedCleanUp.isWithoutProblems();
 		appliedCleanUp.isSourceUnchanged();
+	}
+
+	@Test
+	void testCleanUpPreview() {
+		String template = """
+				import java.util.*;
+				import java.util.stream.*;
+
+				public class Previews {
+				public static void main(String[] args) {
+				%s
+				}
+				}
+				""";
+		MethodNegationPushdownCandidate.selectOnly(options);
+		String previewsBefore = getPreviewsAsLines();
+		MethodNegationPushdownCandidate.selectOnly(options, MethodNegationPushdownCandidate.values());
+		String previewsAfter = getPreviewsAsLines();
+
+		var appliedCleanUp = assertThat(cleanUp).using( //
+				environment().name("Previews.java").source(template.formatted(previewsBefore)) //
+		);
+
+		appliedCleanUp.isWithoutProblems();
+		appliedCleanUp.newSource().isEqualTo(template, previewsAfter);
+	}
+
+	private String getPreviewsAsLines() {
+		return Stream.of(MethodNegationPushdownCandidate.values()) //
+				.map(candidate -> candidate.getPreview(cleanUp)) //
+				.collect(Collectors.joining("\n"));
 	}
 }
