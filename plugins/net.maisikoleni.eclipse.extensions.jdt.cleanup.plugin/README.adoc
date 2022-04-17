@@ -26,21 +26,32 @@ supported method pairs.
 .Supported Opposing Method Pairs
 [#method-neg-table,options="header",cols="1,1,1"]
 |===
-| Invocation Target Type    | Method A    | Method B
-//------------------------------------------------------
-| `java.util.Optional`      | `isPresent` | `isEmpty`
-| `java.util.stream.Stream` | `anyMatch`  | `noneMatch`
+| Invocation Target Type          | Method A    | Method B
+//-----------------------------------------------------------
+| `java.util.Objects`             | `nonNull`   | `isNull`
+a|
+* `java.util.Optional`
+* `java.util.OptionalInt`
+* `java.util.OptionalLong`
+* `java.util.OptionalDouble`      | `isPresent` | `isEmpty`
+a|
+* `java.util.stream.Stream`
+* `java.util.stream.IntStream`
+* `java.util.stream.LongStream`
+* `java.util.stream.DoubleStream` | `anyMatch`  | `noneMatch`
 |===
 
 For example, the statements
 [source,java]
 ----
+boolean isNull = !Objects.nonNull(null);
 boolean isEmpty = !Optional.of(42).isPresent();
 boolean hasBlank = !(Stream.of("penguin").noneMatch(String::isBlank));
 ----
 will get transformed into
 [source,java]
 ----
+boolean isNull = Objects.isNull(null);
 boolean isEmpty = Optional.of(42).isEmpty();
 boolean hasBlank = Stream.of("penguin").anyMatch(String::isBlank);
 ----
