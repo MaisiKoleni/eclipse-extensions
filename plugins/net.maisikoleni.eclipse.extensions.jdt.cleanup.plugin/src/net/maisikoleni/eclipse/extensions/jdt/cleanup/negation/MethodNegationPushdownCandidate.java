@@ -23,7 +23,7 @@ import net.maisikoleni.eclipse.extensions.jdt.cleanup.SimpleCleanUp;
 @SuppressWarnings("restriction")
 public enum MethodNegationPushdownCandidate {
 	OBJECTS_NULL("nonNull", "isNull", "java.util.Objects", "java.lang.Object"),
-	OPTIONAL("isPresent", "isEmpty", Set.of( //
+	OPTIONAL("isPresent", "isEmpty", List.of( //
 			"java.util.Optional", //
 			"java.util.OptionalInt", //
 			"java.util.OptionalLong", //
@@ -50,14 +50,14 @@ public enum MethodNegationPushdownCandidate {
 		this.methodNameB = Objects.requireNonNull(methodNameB);
 	}
 
-	MethodNegationPushdownCandidate(String methodNameA, String methodNameB, Set<String> types,
+	MethodNegationPushdownCandidate(String methodNameA, String methodNameB, List<String> types,
 			String... parameterTypeNames) {
 		this(methodNameA, methodNameB,
 				types.stream().map(type -> new Variant(type, parameterTypeNames)).toArray(Variant[]::new));
 	}
 
 	MethodNegationPushdownCandidate(String methodNameA, String methodNameB, String type, String... parameterTypeNames) {
-		this(methodNameA, methodNameB, Set.of(type), parameterTypeNames);
+		this(methodNameA, methodNameB, List.of(type), parameterTypeNames);
 	}
 
 	public String getId() {
@@ -68,7 +68,7 @@ public enum MethodNegationPushdownCandidate {
 	public String toString() {
 		var result = new StringBuilder();
 		result.append(methodNameA);
-		result.append(" <---> ");
+		result.append("/");
 		result.append(methodNameB);
 		result.append(" for the type ");
 		result.append(variants.get(0).type());
