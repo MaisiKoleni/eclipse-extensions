@@ -17,6 +17,15 @@
             class="net.maisikoleni.eclipse.extensions.jdt.cleanup.negation.MethodNegationPushdownOptionsInitializer"
             cleanUpKind="cleanUp">
       </cleanUpOptionsInitializer>
+      <cleanUpConfigurationUI
+            class="net.maisikoleni.eclipse.extensions.jdt.cleanup.CleanUpExtensionsTabPage"
+            cleanUpKind="saveAction"
+            name="Extensions by Christian Femers">
+      </cleanUpConfigurationUI>
+      <cleanUpOptionsInitializer
+            class="net.maisikoleni.eclipse.extensions.jdt.cleanup.negation.MethodNegationPushdownOptionsInitializer"
+            cleanUpKind="saveAction">
+      </cleanUpOptionsInitializer>
    </extension>
 
 
