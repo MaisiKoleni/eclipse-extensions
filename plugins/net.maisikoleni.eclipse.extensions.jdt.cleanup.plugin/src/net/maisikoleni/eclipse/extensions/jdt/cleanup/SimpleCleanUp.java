@@ -43,7 +43,7 @@ public abstract class SimpleCleanUp extends AbstractCleanUp {
 	 * Returns whether this clean-up with the {@link #getId()} is enabled based on
 	 * the current options.
 	 */
-	protected final boolean isEnabled() {
+	public final boolean isEnabled() {
 		return isEnabled(getId());
 	}
 

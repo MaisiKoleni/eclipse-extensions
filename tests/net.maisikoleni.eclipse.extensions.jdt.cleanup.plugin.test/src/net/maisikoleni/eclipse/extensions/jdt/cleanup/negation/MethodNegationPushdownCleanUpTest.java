@@ -80,6 +80,13 @@ class MethodNegationPushdownCleanUpTest {
 		assertTrue(previewLines.stream().allMatch(line -> line.contains("!")));
 	}
 
+	@Test
+	void testPreviewDisabled() {
+		options.setOption(CleanUpExtensions.METHOD_NEGATION_PUSHDOWN, CleanUpOptions.FALSE);
+		var previewLines = getPreviewLines();
+		assertTrue(previewLines.stream().allMatch(line -> line.contains("!")));
+	}
+
 	private List<String> getPreviewLines() {
 		var preview = cleanUp.getPreview();
 		var<String> previewLines = preview.lines().filter(not(String::isEmpty)).collect(Collectors.toList());

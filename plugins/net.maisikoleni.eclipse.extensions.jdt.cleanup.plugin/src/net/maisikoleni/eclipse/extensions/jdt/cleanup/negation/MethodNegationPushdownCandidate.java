@@ -104,7 +104,7 @@ public enum MethodNegationPushdownCandidate {
 	}
 
 	public String getPreview(SimpleCleanUp cleanUp) {
-		boolean disabled = !cleanUp.isEnabled(getId());
+		boolean disabled = !cleanUp.isEnabled() || !cleanUp.isEnabled(getId());
 		return switch (this) {
 			case OPTIONAL -> disabled ? //
 					"boolean empty = !Optional.of(1).isPresent();" : //
