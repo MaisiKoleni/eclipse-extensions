@@ -24,7 +24,7 @@ The table <<method-neg-table>> lists all currently
 supported method pairs.
 
 .Supported Opposing Method Pairs
-[#method-neg-table,options="header",cols="1,1,1"]
+[#method-neg-table,options="header",cols="~,~,~"]
 |===
 | Invocation Target Type          | Method A    | Method B
 //-----------------------------------------------------------
