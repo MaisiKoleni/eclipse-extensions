@@ -44,7 +44,7 @@ public class MethodNegationPushdownCleanUp
 
 	@Override
 	protected String getStepDescription() {
-		return CleanUpExtensions.METHOD_NEGATION_PUSHDOWN_DESCRIPTION; // $NON-NLS-1$
+		return CleanUpExtensions.METHOD_NEGATION_PUSHDOWN_DESCRIPTION;
 	}
 
 	@Override
