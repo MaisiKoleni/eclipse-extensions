@@ -2,6 +2,8 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
+         id="net.maisikoleni.eclipse.extensions.jdt.cleanups"
+         name="JDT CleanUp Extensions"
          point="org.eclipse.jdt.ui.cleanUps">
       <cleanUp
             class="net.maisikoleni.eclipse.extensions.jdt.cleanup.negation.MethodNegationPushdownCleanUp"
