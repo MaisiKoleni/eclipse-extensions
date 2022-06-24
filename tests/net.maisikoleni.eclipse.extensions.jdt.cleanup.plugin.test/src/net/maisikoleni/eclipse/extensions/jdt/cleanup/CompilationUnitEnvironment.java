@@ -208,6 +208,7 @@ public final class CompilationUnitEnvironment {
 	}
 
 	private CompilationUnit createCompilationUnit() {
+		@SuppressWarnings("deprecation")
 		var parser = ASTParser.newParser(AST.JLS17);
 		parser.setKind(ASTParser.K_COMPILATION_UNIT);
 		setCompilerOptions(parser);

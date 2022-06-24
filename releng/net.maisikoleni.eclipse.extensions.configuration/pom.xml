@@ -7,11 +7,11 @@
 
 	<properties>
 		<!-- see https://maven.apache.org/maven-ci-friendly.html -->
-		<revision>0.0.1</revision>
+		<revision>0.0.2</revision>
 		<changelist>-SNAPSHOT</changelist>
 		<!-- Environment -->
 		<java.version>17</java.version>
-		<tycho.version>2.7.1</tycho.version>
+		<tycho.version>2.7.3</tycho.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>

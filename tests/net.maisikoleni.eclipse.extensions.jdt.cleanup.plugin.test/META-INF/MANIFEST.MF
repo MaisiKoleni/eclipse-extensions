@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: JDT Clean-Up Extensions Test
 Bundle-SymbolicName: net.maisikoleni.eclipse.extensions.jdt.cleanup.plugin.tests
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 0.0.2.qualifier
 Bundle-Vendor: Christian Femers
-Fragment-Host: net.maisikoleni.eclipse.extensions.jdt.cleanup.plugin;bundle-version="0.0.1"
+Fragment-Host: net.maisikoleni.eclipse.extensions.jdt.cleanup.plugin;bundle-version="0.0.2"
 Automatic-Module-Name: net.maisikoleni.eclipse.extensions.jdt.cleanup.plugin.test
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.junit.jupiter.api;bundle-version="5.8.1",
